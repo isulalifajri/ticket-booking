@@ -1,12 +1,12 @@
-## membuat sistem booking tiket
+# membuat sistem booking tiket
 
 tech stack: `golang Version go 1.25.1` and db: `postgreSQL`
 
 ---
 
-# Start Project
+## Start Project
 
-*Structur Folder Planning*
+**Structur Folder Planning**
 
 ```
 ticket-booking/
@@ -66,8 +66,7 @@ ticket-booking/
 ---
 
 jalankan : `go mod init ticket-booking` -> membuat folder go
-
-*step 2: buat struktur folder dasar*
+**step 2: buat struktur folder dasar**
 
 ```
 ticket-booking/
@@ -95,7 +94,7 @@ ticket-booking/
 └── README.md
 ```
 
-*step 3: install dependency awal*
+**step 3: install dependency awal**
 
 ```
 go get github.com/gofiber/fiber/v2
@@ -104,7 +103,7 @@ go get gorm.io/gorm
 go get gorm.io/driver/postgres
 ```
 
-*step 4: setup env*
+**step 4: setup env**
 ```
 APP_PORT=3000
 
