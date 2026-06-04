@@ -66,6 +66,8 @@ ticket-booking/
 ---
 
 jalankan : `go mod init ticket-booking` -> membuat folder go
+
+
 **step 2: buat struktur folder dasar**
 
 ```
@@ -114,3 +116,5 @@ DB_PASSWORD=postgres
 DB_NAME=ticket_booking
 DB_SSLMODE=disable
 ```
+
+**step 4: buat file model untuk strucktur database**
