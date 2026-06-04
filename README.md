@@ -16,12 +16,12 @@ ticket-booking/
 │       └── main.go
 │
 ├── configs/
-│   └── config.go
 │
 ├── internal/
 │
 │   ├── database/
-│   │   └── postgres.go
+│   │   ├── postgres.go
+│   │   └── migrate.go
 │   │
 │   ├── middleware/
 │   │   ├── auth.go
@@ -30,25 +30,34 @@ ticket-booking/
 │   ├── models/
 │   │   ├── user.go
 │   │   ├── movie.go
+│   │   ├── studio.go
+│   │   ├── studio_seat.go
 │   │   ├── schedule.go
-│   │   ├── seat.go
 │   │   ├── booking.go
+│   │   ├── booking_seat.go
 │   │   └── payment.go
 │   │
 │   ├── repositories/
 │   │   ├── user_repository.go
 │   │   ├── movie_repository.go
-│   │   └── booking_repository.go
+│   │   ├── studio_repository.go
+│   │   ├── schedule_repository.go
+│   │   ├── booking_repository.go
+│   │   └── payment_repository.go
 │   │
 │   ├── services/
 │   │   ├── auth_service.go
+│   │   ├── movie_service.go
+│   │   ├── studio_service.go
+│   │   ├── schedule_service.go
 │   │   ├── booking_service.go
-│   │   ├── payment_service.go
-│   │   └── seat_service.go
+│   │   └── payment_service.go
 │   │
 │   ├── handlers/
 │   │   ├── auth_handler.go
 │   │   ├── movie_handler.go
+│   │   ├── studio_handler.go
+│   │   ├── schedule_handler.go
 │   │   ├── booking_handler.go
 │   │   └── payment_handler.go
 │   │
@@ -58,8 +67,9 @@ ticket-booking/
 ├── migrations/
 │
 ├── .env
-├── docker-compose.yml
+├── .gitignore
 ├── go.mod
+├── go.sum
 └── README.md
 ```
 
@@ -118,3 +128,16 @@ DB_SSLMODE=disable
 ```
 
 **step 4: buat file model untuk strucktur database**
+
+```
+user.go
+movie.go
+studio.go
+studio_seat.go
+schedule.go
+booking.go
+booking_seat.go
+payment.go
+```
+
+setelah selesai, kita jalankan: `go run cmd/api/main.go`
