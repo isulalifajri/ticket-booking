@@ -141,3 +141,65 @@ payment.go
 ```
 
 setelah selesai, kita jalankan: `go run cmd/api/main.go`
+
+ok, setelah table berhasil di buat, selanjutanya buat file ini `routes.go` disini: `internal/routes` isi filenya seperti ini:
+
+```
+package routes
+
+import "github.com/gofiber/fiber/v2"
+
+func SetupRoutes(app *fiber.App) {
+
+	app.Get("/health", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{
+			"status": "ok",
+		})
+	})
+
+}
+```
+
+kemudian isi main.go jadi seperti ini:
+
+```
+package main
+
+import (
+	"log"
+
+	"ticket-booking/internal/database"
+	"ticket-booking/internal/routes"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
+)
+
+func main() {
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("failed load env")
+	}
+
+	db, err := database.ConnectDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = database.AutoMigrate(db)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	app := fiber.New()
+
+	routes.SetupRoutes(app)
+
+	log.Fatal(app.Listen(":3000"))
+}
+```
+
+jalankan lagi: `go run cmd/api/main.go`
+
+browser: `http://localhost:3000/health`

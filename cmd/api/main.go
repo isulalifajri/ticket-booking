@@ -3,16 +3,18 @@ package main
 import (
 	"log"
 
-	"github.com/joho/godotenv"
-
 	"ticket-booking/internal/database"
+	"ticket-booking/internal/routes"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
 )
 
 func main() {
 
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Failed to load .env file")
+		log.Fatal("failed load env")
 	}
 
 	db, err := database.ConnectDB()
@@ -25,5 +27,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Println("Migration completed")
+	app := fiber.New()
+
+	routes.SetupRoutes(app, db)
+
+	log.Fatal(app.Listen(":3000"))
 }
