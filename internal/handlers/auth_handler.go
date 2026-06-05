@@ -54,7 +54,7 @@ func (h *AuthHandler) Login(c *fiber.Ctx) error {
 		})
 	}
 
-	user, err := h.authService.Login(req)
+	token, err := h.authService.Login(req)
 
 	if err != nil {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
@@ -64,11 +64,16 @@ func (h *AuthHandler) Login(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map{
 		"message": "login success",
-		"user": fiber.Map{
-			"id":    user.ID,
-			"name":  user.Name,
-			"email": user.Email,
-			"role":  user.Role,
-		},
+		"token":   token,
 	})
+
+	// return c.JSON(fiber.Map{
+	// 	"message": "login success",
+	// 	"user": fiber.Map{
+	// 		"id":    user.ID,
+	// 		"name":  user.Name,
+	// 		"email": user.Email,
+	// 		"role":  user.Role,
+	// 	},
+	// })
 }

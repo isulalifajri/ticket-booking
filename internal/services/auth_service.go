@@ -6,6 +6,7 @@ import (
 	"ticket-booking/internal/dto"
 	"ticket-booking/internal/models"
 	"ticket-booking/internal/repositories"
+	"ticket-booking/internal/utils"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
@@ -58,12 +59,12 @@ func (s *AuthService) Register(
 
 func (s *AuthService) Login(
 	req dto.LoginRequest,
-) (*models.User, error) {
+) (string, error) {
 
 	user, err := s.userRepo.FindByEmail(req.Email)
 
 	if err != nil {
-		return nil, errors.New("invalid email or password")
+		return "", errors.New("invalid email or password")
 	}
 
 	err = bcrypt.CompareHashAndPassword(
@@ -72,8 +73,18 @@ func (s *AuthService) Login(
 	)
 
 	if err != nil {
-		return nil, errors.New("invalid email or password")
+		return "", errors.New("invalid email or password")
 	}
 
-	return user, nil
+	token, err := utils.GenerateToken(
+		user.ID,
+		user.Email,
+		user.Role,
+	)
+
+	if err != nil {
+		return "", err
+	}
+
+	return token, nil
 }
