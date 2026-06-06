@@ -7,6 +7,8 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
+	
+	"ticket-booking/internal/middleware"
 )
 
 func SetupRoutes(
@@ -30,4 +32,17 @@ func SetupRoutes(
 
 	api.Post("/register", authHandler.Register)
 	api.Post("/login", authHandler.Login)
+
+	api.Get(
+		"/profile",
+		middleware.AuthMiddleware(),
+		func(c *fiber.Ctx) error {
+
+			return c.JSON(fiber.Map{
+				"user_id": c.Locals("user_id"),
+				"email":   c.Locals("email"),
+				"role":    c.Locals("role"),
+			})
+		},
+	)
 }
