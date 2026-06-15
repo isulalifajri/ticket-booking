@@ -8,10 +8,11 @@ import (
 
 type Movie struct {
 	ID          uint           `gorm:"primaryKey" json:"id"`
-	Title       string         `gorm:"size:255;not null" json:"title"`
+	Title       string         `gorm:"unique;size:255;not null" json:"title"`
 	Description string         `gorm:"type:text" json:"description"`
 	Duration    int            `json:"duration"`
 	PosterURL   string         `gorm:"type:text" json:"poster_url"`
+	Genre       string         `gorm:"size:100" json:"genre"`
 
 	CreatedAt time.Time
 	UpdatedAt time.Time
